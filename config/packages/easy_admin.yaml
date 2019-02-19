@@ -1,0 +1,59 @@
+easy_admin:
+    entities:
+        Item:
+            class: App\Entity\Item
+            form:
+                fields:
+                    - reference_fabricant
+                    - designation
+                    - { property: 'destination', type: 'easyadmin_autocomplete' }
+                    - fabricant
+                    - illustrations
+                    - users
+            list:
+                fields:
+                    - reference_fabricant
+                    - { property: 'getMainIllustration.getImageFile', type: 'image', base_path: '%app.path.product_images%' }
+                    - designation
+                    - { property: 'destination', type: 'easyadmin_autocomplete' }
+                    - fabricant
+                    - illustrations
+                    - users
+        Fabricant:
+            class: App\Entity\Fabricant
+        Destination:
+            class: App\Entity\Destination
+            form:
+                fields:
+                    - inseeCode
+                    - zipCode
+                    - name
+                    - slug
+                    - gpsLat
+                    - gpsLng
+                    - { property: 'parent', type: 'easyadmin_autocomplete' }
+                    - items
+        User:
+            class: App\Entity\User
+        Illustration:
+            class: App\Entity\Illustration
+            # ...
+            list:
+                fields:
+                    - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
+                    - is_main
+                    - item
+                    - description
+            # ...
+            show:
+                fields:
+                    - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
+                    - is_main
+                    - item
+                    - description
+            form:
+                fields:
+                    - { property: 'imageFile', type: 'vich_image' }
+                    - is_main
+                    - item
+                    - description

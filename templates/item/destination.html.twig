@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste{% endblock %}
+
+{% block body %}
+    <h1>Item</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ destination.id }}</td>
+            </tr>
+			
+        </tbody>
+    </table>
+	Nombre d'items en dessous : {{ get_all_items_under|length }}
+	<br /><br />
+	{% for item_under in get_all_items_under %}
+	<div style='display:inline-block;border:1px solid yellow;'>
+	{{ item_under.id }}<br />{{ item_under.designation }}<br />
+	{% if item_under.getMainIllustration %}
+		<img src="{{ vich_uploader_asset(item_under.getMainIllustration, 'imageFile') }}" style='height:100px;'>
+	{% endif %}
+	</div>
+	{% endfor %}
+	
+	{% for item in destination.items %}
+	- <a href="{{ path('item_show', {'id': item.id}) }}">{{ item }}</a><br />
+	{% endfor %}
+	
+	{% for enfant in enfants %}
+	> <a href="{{ path('destination_list', {'slug': enfant.slug}) }}">{{ enfant }}</a> ({{ enfant.items.count }}) <br />
+	{% endfor %}
+	
+{% endblock %}

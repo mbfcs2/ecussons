@@ -1,0 +1,26 @@
+security:
+  
+    encoders:
+        # use your user class name here
+        App\Entity\User:
+            # bcrypt or argon2i are recommended
+            # argon2i is more secure, but requires PHP 7.2 or the Sodium extension
+            algorithm: bcrypt
+            cost: 12
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+                    
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/ecussons/, roles: ROLE_ADMIN }
+
+    

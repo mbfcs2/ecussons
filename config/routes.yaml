@@ -1,0 +1,13 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+app_item:
+    path: /ecusson/{id}-{slug}
+    controller: App\Controller\ItemController::show
+    requirements:
+        id: '\d+'
+        
+user_show:
+    path: /user/{slug}
+    controller: App\Controller\UserController::show
