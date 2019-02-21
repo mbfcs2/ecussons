@@ -16,14 +16,20 @@
     </table>
 	Nombre d'items en dessous : {{ get_all_items_under|length }}
 	<br /><br />
+	
+	<div class="columns is-multiline is-mobile">
+  
 	{% for item_under in get_all_items_under %}
-	<div style='display:inline-block;border:1px solid yellow;'>
-	{{ item_under.id }}<br />{{ item_under.designation }}<br />
+	<div class="column is-half-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd"
+	style="border:1px solid blue; box-sizing:border-box">
+	<p style="background-color:white;">{{ item_under.id }}<br />{{ item_under.designation }}<br />
 	{% if item_under.getMainIllustration %}
 		<img src="{{ vich_uploader_asset(item_under.getMainIllustration, 'imageFile') }}" style='height:100px;'>
 	{% endif %}
-	</div>
+	</p></div>
 	{% endfor %}
+	
+	</div>
 	
 	{% for item in destination.items %}
 	- <a href="{{ path('item_show', {'id': item.id}) }}">{{ item }}</a><br />
