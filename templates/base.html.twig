@@ -4,9 +4,10 @@
         <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<link href="{{ asset('css/mystyles.css') }}" rel="stylesheet" />
+		{{ encore_entry_link_tags('app') }}
         <title>{% block title %}Ecussons{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+		{{ encore_entry_link_tags('app') }}
     </head>
     <body>
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
