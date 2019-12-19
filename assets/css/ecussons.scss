@@ -18,6 +18,7 @@ $primary: $dodgerblue;
 $link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
+$primary-invert: $beige-lighter ;
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
@@ -33,6 +34,8 @@ $input-shadow: none;
 @import "./node_modules/bulma/sass/elements/form.sass";
 @import "./node_modules/bulma/sass/elements/title.sass";
 @import "./node_modules/bulma/sass/components/navbar.sass";
+@import "./node_modules/bulma/sass/components/tabs.sass";
 @import "./node_modules/bulma/sass/layout/hero.sass";
 @import "./node_modules/bulma/sass/layout/section.sass";
-@import "./node_modules/bulma/sass/grid/columns.sass"
+@import "./node_modules/bulma/sass/grid/columns.sass";
+@import "./node_modules/bulma/sass/components/modal.sass";

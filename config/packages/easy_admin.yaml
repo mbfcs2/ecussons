@@ -33,6 +33,7 @@ easy_admin:
                     - gpsLng
                     - { property: 'parent', type: 'easyadmin_autocomplete' }
                     - items
+                    - displayType
         User:
             class: App\Entity\User
         Illustration:
@@ -57,3 +58,5 @@ easy_admin:
                     - is_main
                     - item
                     - description
+        Affichage:
+            class: App\Entity\DisplayType

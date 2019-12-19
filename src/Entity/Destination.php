@@ -80,6 +80,13 @@ class Destination
      */
     private $items;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\DisplayType")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $displayType;
+
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -175,18 +182,18 @@ class Destination
     }
 	
 	public function __toString() {
-		$toreturn = $this->name ;
-		if (!is_null($this->zipCode))
-			$toreturn = $toreturn." (".($this->zipCode).")" ;
-		return $toreturn;
-	}
+                           		$toreturn = $this->name ;
+                           		if (!is_null($this->zipCode))
+                           			$toreturn = $toreturn." (".($this->zipCode).")" ;
+                           		return $toreturn;
+                           	}
 	
 	public function affiche_arbo() {
-		$toreturn = $this->name ;
-		if (!is_null($this->parent))
-			$toreturn = ($this->parent->affiche_arbo())." > ".$this->name ;
-		return $toreturn;
-	}
+                           		$toreturn = $this->name ;
+                           		if (!is_null($this->parent))
+                           			$toreturn = ($this->parent->affiche_arbo())." > ".$this->name ;
+                           		return $toreturn;
+                           	}
 	
 	
 
@@ -217,6 +224,18 @@ class Destination
                 $item->setDestination(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDisplayType(): ?displayType
+    {
+        return $this->displayType;
+    }
+
+    public function setDisplayType(?displayType $displayType): self
+    {
+        $this->displayType = $displayType;
 
         return $this;
     }

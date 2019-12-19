@@ -84,33 +84,6 @@ class ItemController extends AbstractController
         ]);
     }
 	
-	public function destination_list(String $slug): Response
-    {
-		
-		
-		$repository = $this->getDoctrine()->getRepository(Destination::class);
-		//$destination = $repository->findOneBy(['slug' => $slug]);
-		$destination = $repository->findOneBySlug($slug);
-		if (!$destination) {
-			throw $this->createNotFoundException(
-				'No product found for slug '.$slug
-			);
-		}
-		
-		//$itemmanager = new DestinationController() ;
-		//$all_enfants = $itemmanager->get_all_items_under($destination);
-		$all_enfants = array("yo"=>"1") ;
-		
-		$enfants = $repository->findBy(
-			['parent' => $destination],
-		);
-		
-        return $this->render('item/destination.html.twig', [
-            'destination' => $destination,
-			'enfants' => $enfants,
-			'get_all_items_under' => $all_enfants
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="item_edit", methods={"GET","POST"})

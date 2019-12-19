@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Destination;
+use App\Entity\Item;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class DestinationManager
@@ -15,16 +16,28 @@ class DestinationManager
         $this->em = $em;
     }
 	
-    public function get_all_items_under(Destination $destination)
+	public function get_all_destinations_under(Destination $destination)
     {
-        $items = $destination->getItems() ;
+        $destinations = [$destination] ;
 		$repository = $this->em->getRepository(Destination::class);
 		
 		$children = $repository->findBy(['parent' => $destination]);
 		if ($children)
 			foreach ($children as $child)
-				$items = new ArrayCollection(array_merge($items->toArray(), $this->get_all_items_under($child)->toArray())) ;
+				$destinations = array_merge($destinations, $this->get_all_destinations_under($child)) ;
 			
-		return $items;
+		return $destinations;
+    }
+	
+    public function get_all_items_under(Destination $destination)
+    {
+        
+		
+		
+		$repository = $this->em->getRepository(Item::class);
+		
+		$children = $repository->findBy(['destination' => $this->get_all_destinations_under($destination)]);
+		
+		return $children;
     }
 }
