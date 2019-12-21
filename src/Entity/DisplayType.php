@@ -37,4 +37,9 @@ class DisplayType
 
         return $this;
     }
+
+    public function __toString() {
+        $toreturn = $this->designation ;
+        return $toreturn;
+    }
 }

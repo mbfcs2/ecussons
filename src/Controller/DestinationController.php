@@ -66,7 +66,7 @@ class DestinationController extends AbstractController
 		$destination = $repository->findOneBySlug($slug);
 		if (!$destination) {
 			throw $this->createNotFoundException(
-				'No product found for slug '.$slug
+				'Aucune destination trouvée pour '.$slug
 			);
 		}
 		$all_enfants = $DestinationManager->get_all_items_under($destination) ;
