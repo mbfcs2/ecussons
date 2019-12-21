@@ -69,17 +69,13 @@ class DestinationController extends AbstractController
 				'Aucune destination trouvée pour '.$slug
 			);
 		}
-		$all_enfants = $DestinationManager->get_all_items_under($destination) ;
-		
-		
-		$enfants = $repository->findBy(
-			['parent' => $destination],
-		);
-		
+		$all_items = $DestinationManager->get_all_items_under($destination) ;
+		$enfants = $DestinationManager->get_all_destinations_under($destination, 1) ;
+
         return $this->render('item/destination.html.twig', [
             'destination' => $destination,
 			'enfants' => $enfants,
-			'get_all_items_under' => $all_enfants
+			'get_all_items_under' => $all_items
 
         ]);
     }

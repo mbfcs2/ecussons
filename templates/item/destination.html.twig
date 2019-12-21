@@ -62,7 +62,7 @@
 	{% endfor %}
 	
 	{% for enfant in enfants %}
-	> <a href="{{ path('destination_list', {'slug': enfant.slug}) }}">{{ enfant }}</a> ({{ enfant.items.count }}) <br />
+	> <a href="{{ path('destination_list', {'slug': enfant.slug}) }}">{{ enfant }}</a><br />
 	{% endfor %}
 	
 {% endblock %}
