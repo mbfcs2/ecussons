@@ -1,29 +1,108 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Item{% endblock %}
+{% block title %}Ecusson - {{ item.designation }}{% endblock %}
 
 {% block hero %}
 	<section class="hero is-primary">
 	  <div class="hero-body">
 		<div class="container">
-		  <h1 class="title">
-			{{ item.designation }}
-		  </h1>
+            <h1 class="title">
+                {{ item.designation }}
+            </h1>
+            <h2 class="subtitle">
+                Ecusson
+            </h2>
 		</div>
 	  </div>
-	  <div class="hero-foot">
-            <div class="container">
-                {{ item.destination.affiche_arbo }}
-            </div>
-        </div>
 	</section>
 {% endblock %}
 {% block body %}
 
+
+<div class="columns is-multiline is-mobile">
+    <div class="column is-two-thirds-desktop is-two-thirds-widescreen is-two-thirds-fullhd">
+
+        <div class="box">
+            {% for dest in arbo %}
+                {% if not loop.first %} > {% endif %}
+                <a href="{{ path('destination_list', {'slug': dest.slug}) }}">{{ dest }}</a>
+            {% endfor %}
+        </div>
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Références fabricant</strong>
+                            <br />
+                            <b>Fabricant :</b> {{ item.fabricant.nom }}
+                            <br />
+                            <b>Réference fabricant :</b> {{ item.referenceFabricant }}
+                            <br>
+                            <b>Désignation :</b> {{ item.designation }}
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>Références site</strong>
+                            <br>
+                            <b>Identifiant :</b> {{ item.id }}
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            {% if user %}
+                                <button onclick="gotitem()" class="button is-primary is-pulled-right">Modifier</button>
+                            {% endif %}
+                            <strong>Votre collection</strong>
+                            <br>
+                            {% if user %}
+                                <span id="gotit">
+                                    <span id="gotit_yes"{% if not gotitem %} class="is-hidden"{% endif %}>Vous avez cet écusson.</span>
+                                    <span id="gotit_no"{% if gotitem %} class="is-hidden"{% endif %}>Vous n'avez pas cet écusson.</span>
+                                </span>
+                            {% else %}
+                                Vous n'êtes pas connecté.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+
+    </div>
+    <div class="column is-one-thirds-desktop is-one-thirds-widescreen is-one-thirds-fullhd">
+        <div class="box">
+            {% if item.illustrations is empty %}
+                Pas d'illustration.
+            {% else %}
+                {% for illustration in item.illustrations %}
+                    <img src="{{ vich_uploader_asset(illustration, 'imageFile') }}">
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
 <script type="text/javascript" language="javascript">
 
     function gotitem() {
-		
+
         var httpRequest = false;
 
         httpRequest = new XMLHttpRequest();
@@ -32,119 +111,32 @@
             alert('Abandon :( Impossible de créer une instance XMLHTTP');
             return false;
         }
-        httpRequest.onreadystatechange = function() { 
-			
-			if (httpRequest.readyState == XMLHttpRequest.DONE) {
-				if (httpRequest.status == 200) {
-					var data = JSON.parse(httpRequest.responseText);
-					if (data.data) {
-						document.getElementById('gotit').innerHTML = 'Vous avez cet item';
-					}
-					else {
-						document.getElementById('gotit').innerHTML = 'Vous n\'avez pas cet item';
-					}
-					document.getElementById('gotit').innerHTML += " Modifier" ;
-					
-				} else {
-					alert('Un problème est survenu avec la requête.');
-				}
-			}
+        httpRequest.onreadystatechange = function() {
 
-		};
+            if (httpRequest.readyState == XMLHttpRequest.DONE) {
+                if (httpRequest.status == 200) {
+                    var data = JSON.parse(httpRequest.responseText);
+                    if (data.data) {
+                        document.getElementById('gotit_yes').classList.remove("is-hidden");
+                        document.getElementById('gotit_no').classList.add("is-hidden");
+                    }
+                    else {
+                        document.getElementById('gotit_no').classList.remove("is-hidden");
+                        document.getElementById('gotit_yes').classList.add("is-hidden");
+                    }
+
+                } else {
+                    alert('Un problème est survenu avec la requête.');
+                }
+            }
+
+        };
         httpRequest.open('GET', '{{ path('user_gotitem', {'id': item.id}) }}', true);
         httpRequest.send();
 
     }
 
 </script>
-
-<div class="columns is-multiline is-mobile">
-    <div class="column is-two-thirds-desktop is-two-thirds-widescreen is-two-thirds-fullhd">
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ item.id }}</td>
-                </tr>
-                <tr>
-                    <th>Fabricant</th>
-                    <td>{{ item.fabricant.nom }}</td>
-                </tr>
-                <tr>
-                    <th>Reference_fabricant</th>
-                    <td>{{ item.referenceFabricant }}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ item.designation }}</td>
-                </tr>
-                {% if item.destination %}
-                <tr>
-                    <th>Destination</th>
-                    <td>{{ item.destination.name }}</td>
-                </tr>
-
-                <tr>
-                    <th>Destination</th>
-                    <td>{% for dest in arbo %}
-                    / <a href="{{ path('destination_list', {'slug': dest.slug}) }}">{{ dest }}</a>
-                    {% endfor %}
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>Destination</th>
-                    <td>
-
-                    </td>
-                </tr>
-
-                {% endif %}
-
-            </tbody>
-        </table>
-
-
-        {% if user %}
-        		Vous êtes {{ user }}.
-        			<span
-        			style="cursor: pointer; text-decoration: underline"
-        			onclick="gotitem()" id="gotit">
-        			{% if gotitem %}
-        			Vous avez cet item.
-        			{% else %}
-        			Vous n'avez pas cet item.
-        			{% endif %}
-        		    Modifier
-
-        			</span>
-        		{% else %}
-        		Vous n'êtes pas connecté
-        		{% endif %}
-
-    </div>
-    <div class="column is-one-thirds-desktop is-one-thirds-widescreen is-one-thirds-fullhd">
-        {% for illustration in item.illustrations %}
-    	    <img src="{{ vich_uploader_asset(illustration, 'imageFile') }}">
-    	{% endfor %}
-    </div>
-</div>
-	
-
-	
-
-	
-	
-	
-
-
-
-
-	
-	
-	
-	
-	
 {% endblock %}
 
 
