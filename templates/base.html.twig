@@ -63,7 +63,7 @@
 			<div class="buttons">
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 					<a class="button">
-						{{ app.user.email }}
+						{{ app.user.login }}
 					  </a>
 				{% else %}
 					<a class="button is-primary" id="connexion">

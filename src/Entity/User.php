@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -42,8 +41,14 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="users")
+     * @ORM\OrderBy({"destination" = "ASC"})
      */
     private $items;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $login;
 
     public function __construct()
     {
@@ -68,8 +73,8 @@ class User implements UserInterface
     }
 
 	public function __toString() {
-		return $this->getUsername();
-	}
+         		return $this->getUsername();
+         	}
 
     /**
      * A visual identifier that represents this user.
@@ -166,6 +171,18 @@ class User implements UserInterface
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
         }
+
+        return $this;
+    }
+
+    public function getLogin(): ?string
+    {
+        return $this->login;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
 
         return $this;
     }
