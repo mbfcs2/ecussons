@@ -194,7 +194,16 @@ class Destination
                            			$toreturn = ($this->parent->affiche_arbo())." > ".$this->name ;
                            		return $toreturn;
                            	}
-	
+
+    public function getArbo() {
+        $arbo = [];
+        $destination_tmp = $this;
+        while(!is_null($destination_tmp)) {
+            array_unshift($arbo, $destination_tmp);
+            $destination_tmp = $destination_tmp->getParent();
+        }
+        return $arbo;
+    }
 	
 
     /**

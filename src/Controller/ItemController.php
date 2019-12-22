@@ -75,10 +75,13 @@ class ItemController extends AbstractController
 		}
 		catch (Exception $e) {
 			$user = null ;
-		}			
+		}
+
+        $arbo = $item->getDestination()->getArbo() ;
 		
 		return $this->render('item/show.html.twig', [
             'item' => $item,
+			'arbo' => $arbo,
 			'user' => $user,
 			'gotitem' => $gotitem
         ]);

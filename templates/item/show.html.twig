@@ -2,6 +2,22 @@
 
 {% block title %}Item{% endblock %}
 
+{% block hero %}
+	<section class="hero is-primary">
+	  <div class="hero-body">
+		<div class="container">
+		  <h1 class="title">
+			{{ item.designation }}
+		  </h1>
+		</div>
+	  </div>
+	  <div class="hero-foot">
+            <div class="container">
+                {{ item.destination.affiche_arbo }}
+            </div>
+        </div>
+	</section>
+{% endblock %}
 {% block body %}
 
 <script type="text/javascript" language="javascript">
@@ -42,78 +58,87 @@
 
 </script>
 
+<div class="columns is-multiline is-mobile">
+    <div class="column is-two-thirds-desktop is-two-thirds-widescreen is-two-thirds-fullhd">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ item.id }}</td>
+                </tr>
+                <tr>
+                    <th>Fabricant</th>
+                    <td>{{ item.fabricant.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Reference_fabricant</th>
+                    <td>{{ item.referenceFabricant }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ item.designation }}</td>
+                </tr>
+                {% if item.destination %}
+                <tr>
+                    <th>Destination</th>
+                    <td>{{ item.destination.name }}</td>
+                </tr>
 
-    <h1>Item</h1>
+                <tr>
+                    <th>Destination</th>
+                    <td>{% for dest in arbo %}
+                    / <a href="{{ path('destination_list', {'slug': dest.slug}) }}">{{ dest }}</a>
+                    {% endfor %}
+                    </td>
+                </tr>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ item.id }}</td>
-            </tr>
-            <tr>
-                <th>Fabricant</th>
-                <td>{{ item.fabricant.nom }}</td>
-            </tr>
-            <tr>
-                <th>Reference_fabricant</th>
-                <td>{{ item.referenceFabricant }}</td>
-            </tr>
-			<tr>
-                <th>Description</th>
-                <td>{{ item.designation }}</td>
-            </tr>
-			{% if item.destination %}
-            <tr>
-                <th>Destination</th>
-                <td>{{ item.destination.name }}</td>
-            </tr>
-			
-            <tr>
-                <th>Destination</th>
-                <td>{{ item.destination.affiche_arbo }}</td>
-            </tr>
-			{% endif %}
-			
-        </tbody>
-    </table>
-	
-	{% for illustration in item.illustrations %}
-	<img src="{{ vich_uploader_asset(illustration, 'imageFile') }}">
-	{% endfor %}
-	
-	
-	
-	
+                <tr>
+                    <th>Destination</th>
+                    <td>
 
-    <a href="{{ path('item_index') }}">back to list</a>
+                    </td>
+                </tr>
 
-    <a href="{{ path('item_edit', {'id': item.id}) }}">edit</a>
+                {% endif %}
 
-    {{ include('item/_delete_form.html.twig') }}
-	
-	
-	
-	
-	
+            </tbody>
+        </table>
 
 
         {% if user %}
-		Vous êtes {{ user }}.
-			<span
-			style="cursor: pointer; text-decoration: underline"
-			onclick="gotitem()" id="gotit">
-			{% if gotitem %}
-			Vous avez cet item.
-			{% else %}
-			Vous n'avez pas cet item.
-			{% endif %}
-		    Modifier
-			
-			</span>
-		{% else %}
-		Vous n'êtes pas connecté
-		{% endif %}
+        		Vous êtes {{ user }}.
+        			<span
+        			style="cursor: pointer; text-decoration: underline"
+        			onclick="gotitem()" id="gotit">
+        			{% if gotitem %}
+        			Vous avez cet item.
+        			{% else %}
+        			Vous n'avez pas cet item.
+        			{% endif %}
+        		    Modifier
+
+        			</span>
+        		{% else %}
+        		Vous n'êtes pas connecté
+        		{% endif %}
+
+    </div>
+    <div class="column is-one-thirds-desktop is-one-thirds-widescreen is-one-thirds-fullhd">
+        {% for illustration in item.illustrations %}
+    	    <img src="{{ vich_uploader_asset(illustration, 'imageFile') }}">
+    	{% endfor %}
+    </div>
+</div>
+	
+
+	
+
+	
+	
+	
+
+
+
 
 	
 	

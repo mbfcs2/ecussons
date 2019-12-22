@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Destination;
 use App\Form\DestinationType;
 use App\Service\DestinationManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
@@ -58,7 +60,7 @@ class DestinationController extends AbstractController
     /**
      * @Route("/{slug}", name="destination_list", methods={"GET"})
      */
-    public function show(String $slug, DestinationManager $DestinationManager): Response
+    public function show(String $slug, PaginatorInterface $paginator, Request $request, DestinationManager $DestinationManager): Response
     {
 		
 		
@@ -70,12 +72,20 @@ class DestinationController extends AbstractController
 			);
 		}
 		$all_items = $DestinationManager->get_all_items_under($destination) ;
+
 		$enfants = $DestinationManager->get_all_destinations_under($destination, 1) ;
+
+        $pagination = $paginator->paginate(
+            $enfants, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            20 /*limit per page*/
+        );
+
 
         return $this->render('item/destination.html.twig', [
             'destination' => $destination,
-			'enfants' => $enfants,
-			'get_all_items_under' => $all_items
+			'get_all_items_under' => $all_items,
+            'pagination' => $pagination
 
         ]);
     }

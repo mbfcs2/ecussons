@@ -18,7 +18,7 @@ class DestinationManager
 	
 	public function get_all_destinations_under(Destination $destination, int $profondeur = 0)
     {
-        $destinations = [$destination] ;
+        $destinations = [] ;
 		$repository = $this->em->getRepository(Destination::class);
 
 		if ($profondeur > 0) {
@@ -26,6 +26,7 @@ class DestinationManager
 		    $children = $repository->findBy(['parent' => $destination]);
             if ($children) {
                 foreach ($children as $child) {
+                    $destinations[] = $child;
                     $destinations = array_merge($destinations, $this->get_all_destinations_under($child, $profondeur)) ;
                 }
             }
