@@ -15,7 +15,25 @@ class DestinationManager
     {
         $this->em = $em;
     }
-	
+
+    public function get_destinations_under(Destination $destination)
+    {
+        $repository = $this->em->getRepository(Destination::class);
+        $children = $repository->findBy(['parent' => $destination], ['name' => 'asc']);
+
+        return $children;
+    }
+
+    public function get_best_itemed_destinations_under(Destination $destination, int $limit=10)
+    {
+        $repository = $this->em->getRepository(Destination::class);
+        # Il faudrait retourner les destinations avec le plus d'items
+        $children = $repository->findBy(['parent' => $destination], ['name' => 'asc'], $limit);
+
+        return $children;
+    }
+
+
 	public function get_all_destinations_under(Destination $destination, int $profondeur = 0)
     {
         $destinations = [] ;
@@ -35,11 +53,10 @@ class DestinationManager
 		return $destinations;
     }
 	
-    public function get_all_items_under(Destination $destination)
+    public function get_all_items_under(Destination $destination, int $profondeur = 0)
     {
 		$repository = $this->em->getRepository(Item::class);
-		//$children = $repository->findBy(['destination' => $this->get_all_destinations_under($destination)]);
-		$children = $repository->findBy(['destination' =>$destination]);
+        $children = $repository->findBy(['destination' => $this->get_all_destinations_under($destination, $profondeur)]);
 		return $children;
     }
 }

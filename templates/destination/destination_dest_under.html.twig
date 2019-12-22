@@ -1,0 +1,34 @@
+{% extends 'destination/destination_base.html.twig' %}
+
+{% block body %}
+
+
+
+	<div class="columns">
+		<div class="column">
+
+			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Destinations ' ~ destination.name, 'pulledRight': pagination.getTotalItemCount  ~ ' destinations'} %}
+
+			<div class="columns is-multiline is-mobile">
+				<div class="column is-full">
+					<div class="navigation">
+						{{ knp_pagination_render(pagination) }}
+					</div>
+				</div>
+				<div class="column is-full">
+					<ul>
+					{% for child in pagination %}
+						<li><a href="{{ path('destination_list', {'slug': child.slug}) }}">{{ child.name }}</a></li>
+					{% endfor %}
+					</ul>
+				</div>
+				<div class="column is-full">
+					<div class="navigation">
+						{{ knp_pagination_render(pagination) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

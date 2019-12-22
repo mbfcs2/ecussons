@@ -16,8 +16,10 @@
 		<nav class="tabs is-boxed">
 		  <div class="container">
 			<ul>
-			  <li class="is-active"><a>Liste</a></li>
-			  <li><a>Ecussons</a></li>
+				<li class="is-active"><a>Résumé</a></li>
+			  	<li><a>Ecussons {{ destination.name }} ({{ destination.items.count }})</a></li>
+			  	<li><a>Destinations {{ destination.name }}</a></li>
+				<li><a>Ecussons dans {{ destination.name }} </a></li>
 			</ul>
 		  </div>
 		</nav>
@@ -25,45 +27,53 @@
 	</section>
 {% endblock %}   
 {% block body %}
-	
-	<h1>Ecussons {{ destination.name }}</h1>
-	<div class="columns is-multiline is-mobile">
-  
-	{% for item_under in destination.items %}
 
-		<div class="column is-half-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd">
-			<a href="{{ path('item_show', {'id': item_under.id}) }}">
-                <div style="background-color:white;height:100%;box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, .1);">
-                    <div style="height:70px; padding:10px;overflow:hidden;line-height:20px;background-color:moccasin;text-align:center;display:flex;align-items:center;justify-content:center">
-                        <p>
-                            <span><b>{{ item_under.destination.name }}</b></span><br />
-                            <span style="font-size:0.7em">{{ item_under.destination.parent.name }}</span>
-                        </p>
-                    </div>
-
-                    <div style="height:300px; background-color:white;position:relative;display:flex;align-items:center;justify-content:center">
-                        {% if item_under.getMainIllustration %}
-                            <img src="{{ vich_uploader_asset(item_under.getMainIllustration, 'imageFile') }}" style='max-width:100%;max-height:100%;'>
-                        {% else %}
-                            <p><i>Pas d'illustration</i></p>
-                        {% endif %}
-                    </div>
-
-
-                    <div style="height:70px; padding:10px;overflow:hidden;line-height:20px;background-color:#eeeeee;text-align:center;display:flex;align-items:center;justify-content:center">
-                        <span>{{ item_under.designation }}</span>
-                    </div>
-                </div>
-			</a>
+	{% if page == "resume" %}
+		<div class="columns">
+			<div class="column has-background-primary has-text-white">
+				<span class="is-pulled-right">{{ destination.items.count }} écussons</span>
+				<h1>Ecussons {{ destination.name }}</h1>
+			</div>
 		</div>
 
-	{% endfor %}
-	
-	</div>
+		<div class="columns is-multiline is-mobile">
 
-	{% for enfant in pagination %}
-	> <a href="{{ path('destination_list', {'slug': enfant.slug}) }}">{{ enfant }}</a> {{ enfant.items.count }}<br />
-	{% endfor %}
+			{% for item_under in destination.items %}
+
+				<div class="column is-half-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd">
+					<a href="{{ path('item_show', {'id': item_under.id}) }}">
+						<div style="background-color:white;height:100%;box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, .1);">
+							<div style="height:70px; padding:10px;overflow:hidden;line-height:20px;background-color:moccasin;text-align:center;display:flex;align-items:center;justify-content:center">
+								<p>
+									<span><b>{{ item_under.destination.name }}</b></span><br />
+									<span style="font-size:0.7em">{{ item_under.destination.parent.name }}</span>
+								</p>
+							</div>
+
+							<div style="height:300px; background-color:white;position:relative;display:flex;align-items:center;justify-content:center">
+								{% if item_under.getMainIllustration %}
+									<img src="{{ vich_uploader_asset(item_under.getMainIllustration, 'imageFile') }}" style='max-width:100%;max-height:100%;'>
+								{% else %}
+									<p><i>Pas d'illustration</i></p>
+								{% endif %}
+							</div>
+
+
+							<div style="height:70px; padding:10px;overflow:hidden;line-height:20px;background-color:#eeeeee;text-align:center;display:flex;align-items:center;justify-content:center">
+								<span>{{ item_under.designation }}</span>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			{% endfor %}
+
+		</div>
+
+	{% endif %}
+
+	<h1>Ecussons {{ destination.name }}</h1>
+
 
 	<div class="navigation">
         {{ knp_pagination_render(pagination) }}

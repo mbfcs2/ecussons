@@ -20,6 +20,7 @@ class Destination
      * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\OneToMany(targetEntity="Destination", mappedBy="destinations")
      */
     private $id;
 
@@ -204,7 +205,6 @@ class Destination
         }
         return $arbo;
     }
-	
 
     /**
      * @return Collection|Item[]

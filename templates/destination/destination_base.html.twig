@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Destination - {{ destination.name }}{% endblock %}
+
+{% block hero %}
+	<section class="hero is-primary">
+	  <div class="hero-body">
+		<div class="container">
+		  <h1 class="title">
+			{{ destination.name }}
+		  </h1>
+		</div>
+	  </div>
+	  <div class="hero-foot">
+		<nav class="tabs is-boxed">
+		  <div class="container">
+			<ul>
+				<li {% if page == "resume" %}class="is-active"{% endif %}><a href="{{ path('destination_list', {'slug': destination.slug}) }}">Résumé</a></li>
+			  	<li {% if page == "items" %}class="is-active"{% endif %}><a href="{{ path('destination_items', {'slug': destination.slug}) }}">Ecussons {{ destination.name }} ({{ destination.items.count }})</a></li>
+			  	{% if children is defined and children is not empty %}
+					<li {% if page == "dest_under" %}class="is-active"{% endif %}><a href="{{ path('destination_dest_under', {'slug': destination.slug}) }}">Destinations {{ destination.name }}</a></li>
+					<li {% if page == "items_under" %}class="is-active"{% endif %}><a href="{{ path('destination_items_under', {'slug': destination.slug}) }}">Ecussons dans {{ destination.name }} </a></li>
+				{% endif %}
+			</ul>
+		  </div>
+		</nav>
+		</div>
+	</section>
+{% endblock %}

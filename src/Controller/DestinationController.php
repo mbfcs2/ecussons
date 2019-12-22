@@ -62,8 +62,6 @@ class DestinationController extends AbstractController
      */
     public function show(String $slug, PaginatorInterface $paginator, Request $request, DestinationManager $DestinationManager): Response
     {
-		
-		
 		$repository = $this->getDoctrine()->getRepository(Destination::class);
 		$destination = $repository->findOneBySlug($slug);
 		if (!$destination) {
@@ -71,25 +69,100 @@ class DestinationController extends AbstractController
 				'Aucune destination trouvée pour '.$slug
 			);
 		}
-		$all_items = $DestinationManager->get_all_items_under($destination) ;
 
-		$enfants = $DestinationManager->get_all_destinations_under($destination, 1) ;
+		//
+		$items_under = $DestinationManager->get_all_items_under($destination, 1) ;
+        $destination_under = $DestinationManager->get_best_itemed_destinations_under($destination, 20) ;
+
+        return $this->render('destination/destination_resume.html.twig', [
+            'destination' => $destination,
+            'children' => $DestinationManager->get_destinations_under($destination),
+            'items_under' => $items_under,
+            'dest_under' => $destination_under,
+            'page' => 'resume'
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/destinations", name="destination_dest_under", methods={"GET"})
+     */
+    public function destination_dest_under(String $slug, PaginatorInterface $paginator, Request $request, DestinationManager $DestinationManager): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Destination::class);
+        $destination = $repository->findOneBySlug($slug);
+        if (!$destination) {
+            throw $this->createNotFoundException(
+                'Aucune destination trouvée pour '.$slug
+            );
+        }
 
         $pagination = $paginator->paginate(
-            $enfants, /* query NOT result */
+            $DestinationManager->get_all_destinations_under($destination, 1), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             20 /*limit per page*/
         );
 
-
-        return $this->render('item/destination.html.twig', [
+        return $this->render('destination/destination_dest_under.html.twig', [
             'destination' => $destination,
-			'get_all_items_under' => $all_items,
-            'pagination' => $pagination
-
+            'children' => $DestinationManager->get_destinations_under($destination),
+            'pagination' => $pagination,
+            'page' => 'dest_under'
         ]);
     }
 
+    /**
+     * @Route("/{slug}/items", name="destination_items", methods={"GET"})
+     */
+    public function destination_items(String $slug, PaginatorInterface $paginator, Request $request, DestinationManager $DestinationManager): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Destination::class);
+        $destination = $repository->findOneBySlug($slug);
+        if (!$destination) {
+            throw $this->createNotFoundException(
+                'Aucune destination trouvée pour '.$slug
+            );
+        }
+
+        $pagination = $paginator->paginate(
+            $destination->getItems(), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            20 /*limit per page*/
+        );
+
+        return $this->render('destination/destination_items.html.twig', [
+            'destination' => $destination,
+            'children' => $DestinationManager->get_destinations_under($destination),
+            'pagination' => $pagination,
+            'page' => 'items'
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/all_items", name="destination_items_under", methods={"GET"})
+     */
+    public function destination_items_under(String $slug, PaginatorInterface $paginator, Request $request, DestinationManager $DestinationManager): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Destination::class);
+        $destination = $repository->findOneBySlug($slug);
+        if (!$destination) {
+            throw $this->createNotFoundException(
+                'Aucune destination trouvée pour '.$slug
+            );
+        }
+
+        $pagination = $paginator->paginate(
+            $DestinationManager->get_all_items_under($destination,1), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            20 /*limit per page*/
+        );
+
+        return $this->render('destination/destination_items_under.html.twig', [
+            'destination' => $destination,
+            'children' => $DestinationManager->get_destinations_under($destination),
+            'pagination' => $pagination,
+            'page' => 'items_under'
+        ]);
+    }
     /**
      * @Route("/{id}/edit", name="destination_edit", methods={"GET","POST"})
      */
