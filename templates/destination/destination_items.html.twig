@@ -6,8 +6,10 @@
 
 	<div class="columns">
 		<div class="column is-full">
-
-			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Ecussons ' ~ destination.name, 'pulledRight': destination.items.count ~ ' écussons'} %}
+			{% set pulledright %}
+				{% transchoice destination.items.count %}{0} Aucun écusson|{1} 1 écusson|]1,Inf] %count% écussons{% endtranschoice %}
+			{% endset %}
+			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Ecussons ' ~ destination.name, 'pulledRight': pulledright} %}
 
 			<div class="columns is-multiline is-mobile">
 				{% if pagination.pageCount > 1 %}

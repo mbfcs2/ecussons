@@ -1,14 +1,12 @@
 {% extends 'destination/destination_base.html.twig' %}
 
 {% block body %}
-
-
-
 	<div class="columns">
 		<div class="column">
-
-			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Destinations ' ~ destination.name, 'pulledRight': pagination.getTotalItemCount  ~ ' destinations'} %}
-
+			{% set pulledright %}
+				{% transchoice pagination.getTotalItemCount %}{0} Aucune destination|{1} 1 destination|]1,Inf] %count% destinations{% endtranschoice %}
+			{% endset %}
+			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Destinations ' ~ destination.name, 'pulledRight': pulledright} %}
 			<div class="columns is-multiline is-mobile">
 				{% if pagination.pageCount > 1 %}
 					<div class="column is-full">
