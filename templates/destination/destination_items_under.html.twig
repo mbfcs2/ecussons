@@ -10,11 +10,18 @@
 			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Ecussons pour ' ~ destination.name, 'pulledRight': pagination.getTotalItemCount ~ ' écussons'} %}
 
 			<div class="columns is-multiline is-mobile">
-				<div class="column is-full">
-					<div class="navigation">
-						{{ knp_pagination_render(pagination) }}
+				{% if pagination.pageCount > 1 %}
+					<div class="column is-full">
+						<div class="navigation">
+							{{ knp_pagination_render(pagination) }}
+						</div>
 					</div>
+				{% endif %}
+				{% if pagination.items is empty %}
+				<div class="column is-full">
+					{% include 'site/includes/blocContent.html.twig' with {'content': 'Aucun écusson n\'est rattaché à cette destination.'} %}
 				</div>
+				{% endif %}
 				{% for item_under in pagination %}
 
 					<div class="column is-half-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd">
@@ -44,11 +51,13 @@
 					</div>
 
 				{% endfor %}
-				<div class="column is-full">
-					<div class="navigation">
-						{{ knp_pagination_render(pagination) }}
+				{% if pagination.pageCount > 1 %}
+					<div class="column is-full">
+						<div class="navigation">
+							{{ knp_pagination_render(pagination) }}
+						</div>
 					</div>
-				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

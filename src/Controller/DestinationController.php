@@ -72,7 +72,7 @@ class DestinationController extends AbstractController
 
 		//
 		$items_under = $DestinationManager->get_all_items_under($destination, 1) ;
-        $destination_under = $DestinationManager->get_best_itemed_destinations_under($destination, 20) ;
+        $destination_under = $DestinationManager->get_best_itemed_destinations_under($destination, 30) ;
 
         return $this->render('destination/destination_resume.html.twig', [
             'destination' => $destination,
@@ -96,8 +96,15 @@ class DestinationController extends AbstractController
             );
         }
 
+        $children = $DestinationManager->get_all_destinations_under($destination, 1);
+        if (!$children) {
+            throw $this->createNotFoundException(
+                'Aucune destination fille trouvée pour '.$slug
+            );
+        }
+
         $pagination = $paginator->paginate(
-            $DestinationManager->get_all_destinations_under($destination, 1), /* query NOT result */
+            $children, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             20 /*limit per page*/
         );

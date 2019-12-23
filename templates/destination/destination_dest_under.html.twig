@@ -10,11 +10,13 @@
 			{% include 'site/includes/barreTitre.html.twig' with {'title': 'Destinations ' ~ destination.name, 'pulledRight': pagination.getTotalItemCount  ~ ' destinations'} %}
 
 			<div class="columns is-multiline is-mobile">
-				<div class="column is-full">
-					<div class="navigation">
-						{{ knp_pagination_render(pagination) }}
+				{% if pagination.pageCount > 1 %}
+					<div class="column is-full">
+						<div class="navigation">
+							{{ knp_pagination_render(pagination) }}
+						</div>
 					</div>
-				</div>
+				{% endif %}
 				<div class="column is-full">
 					<ul>
 					{% for child in pagination %}
@@ -22,11 +24,13 @@
 					{% endfor %}
 					</ul>
 				</div>
-				<div class="column is-full">
-					<div class="navigation">
-						{{ knp_pagination_render(pagination) }}
+				{% if pagination.pageCount > 1 %}
+					<div class="column is-full">
+						<div class="navigation">
+							{{ knp_pagination_render(pagination) }}
+						</div>
 					</div>
-				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
