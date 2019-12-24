@@ -7,7 +7,6 @@
 		{{ encore_entry_link_tags('app') }}
         <title>{% block title %}Ecussons{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-		{{ encore_entry_link_tags('app') }}
     </head>
     <body>
 	
@@ -56,6 +55,11 @@
 			  </a>
 			</div>
 		  </div>
+
+		<div class="navbar-item" id="search_head">
+			<input class="typeahead" type="text" placeholder="States of USA">
+		</div>
+
 		</div>
 
 		<div class="navbar-end">
@@ -95,7 +99,8 @@
 		  </div>
 		</footer>
         {% block javascripts %}{% endblock %}
-		<script>
+	{{ encore_entry_script_tags('app') }}
+	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 
 		  // Get all "navbar-burger" elements
@@ -124,17 +129,21 @@
 		  const $bouton_connexion = document.getElementById("connexion") ;
 		  const $modal_close_bouton = document.getElementById("connexion_modal_close") ;
 		  const $modal_connexion = document.getElementById("connexion_modal");
-		  $bouton_connexion.addEventListener('click', () => {
-				$modal_connexion.classList.add('is-active') ;
-		  });
+		  if ($bouton_connexion !== null) {
+			  $bouton_connexion.addEventListener('click', () => {
+				  $modal_connexion.classList.add('is-active');
+			  });
+		  }
 		  $modal_close_bouton.addEventListener('click', () => {
 				$modal_connexion.classList.remove('is-active') ;
 		  });
-		  
 
 		});
+
+
+
 		</script>
-		
+
 		<div class="modal" id="connexion_modal">
 		  <div class="modal-background"></div>
 		  <div class="modal-card">

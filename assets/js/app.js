@@ -9,6 +9,27 @@
 require('../css/ecussons.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+const $ = require('jquery');
+require('../js/typeahead.js/typeahead.bundle.js');
+window.Bloodhound = require('../js/typeahead.js/bloodhound.min.js');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+$( document ).ready(function() {
+    var states = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: '/search?q=%QUERY',
+            wildcard: '%QUERY'
+        }
+    });
+
+    $('.typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'states',
+            source: states
+        });
+});

@@ -16,6 +16,19 @@ class DestinationManager
         $this->em = $em;
     }
 
+    public function get_destinations_by_name(String $name)
+    {
+        $repository = $this->em->getRepository(Destination::class);
+
+        $children = $repository->createQueryBuilder('o')
+            ->where('o.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')
+            ->getQuery()
+            ->getResult();
+
+        return $children;
+    }
+
     public function get_destinations_under(Destination $destination)
     {
         $repository = $this->em->getRepository(Destination::class);
