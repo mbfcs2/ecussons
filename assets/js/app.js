@@ -30,6 +30,21 @@ $( document ).ready(function() {
         },
         {
             name: 'states',
+            display: 'name',
+            templates: {
+                empty: [
+                    '<div class="empty-message">',
+                    'unable to find any Best Picture winners that match the current query',
+                    '</div>'
+                ].join('\n'),
+                suggestion: function(data) {
+                    return '<p class="has-background-white" class="is-size-6"><strong>' + data.name + '</strong><br /><span class="is-size-7">'+data.arbo+'</span></p>';
+                }
+            },
             source: states
         });
+
+    $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+        window.location = suggestion.url ;
+    });
 });

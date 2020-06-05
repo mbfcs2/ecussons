@@ -33,7 +33,12 @@ class SiteController extends AbstractController
             $children = $DestinationManager->get_destinations_by_name($searching_term);
             foreach ($children as $child) {
                 $retour[] = [
-                    'name' => $child->getName()
+                    'name' => $child->getName(),
+                    'arbo' => $child->affiche_arbo(),
+                    'nbitems' => $child->getItems()->count(),
+                    'url' => $this->generateUrl('destination_list', [
+                        'slug' => $child->getSlug()
+                    ])
                 ];
             }
         }
