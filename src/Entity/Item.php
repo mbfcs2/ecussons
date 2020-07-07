@@ -103,7 +103,7 @@ class Item
     }
 
 	public function __toString() {
-               		return "Item ".$this->id." (".$this->destination.")";
+               		return "Item ".$this->id." (".$this->destination." - ".$this->designation.")";
                	}
 
     
