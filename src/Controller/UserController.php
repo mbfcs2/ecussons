@@ -40,7 +40,8 @@ class UserController extends AbstractController
 
 		return $this->render('user/show.html.twig', [
             'utilisateur' => $user,
-            'items' => $items
+            'items' => $items,
+            'itemsdirect' => $user->getItems()
         ]);
     }
 	

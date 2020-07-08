@@ -18,6 +18,14 @@
     </section>
 {% endblock %}
 {% block body %}
+
+    {{ itemsdirect.count }} direct
+    <br />
+    {% for item_under in items %}
+        {{ item_under }}<br/>
+    {% endfor %}
+    <br /><br />
+
     <div class="columns">
         <div class="column has-background-primary has-text-white">
             <span class="is-pulled-right">{{ items.getTotalItemCount }} écussons</span>
