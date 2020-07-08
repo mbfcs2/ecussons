@@ -2,7 +2,7 @@ $sizeUnit: rem;
 $marginKey: 'm';
 $paddingKey: 'p';
 $separator: '-';
-$sizes: (
+$sizes_defines: (
                 ('none', 0),
                 ('xxs', 0.125),
                 ('xs', 0.25),
@@ -23,7 +23,7 @@ $positions: (
   @return if($key == 'none', 0, $value + $sizeUnit);
 }
 
-@each $size in $sizes {
+@each $size in $sizes_defines {
   $sizeKey: nth($size, 1);
   $sizeValue: nth($size, 2);
   .#{$marginKey}#{$separator}#{$sizeKey} {

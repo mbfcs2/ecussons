@@ -98,15 +98,12 @@ class Item
     public function setReferenceFabricant(?string $reference_fabricant): self
     {
         $this->reference_fabricant = $reference_fabricant;
-
         return $this;
     }
 
 	public function __toString() {
-               		return "Item ".$this->id." (".$this->destination." - ".$this->designation.")";
-               	}
-
-    
+        return "Item ".$this->id." (".$this->destination." - ".$this->designation.")";
+    }
 
     public function getDesignation(): ?string
     {
@@ -116,11 +113,8 @@ class Item
     public function setDesignation(?string $designation): self
     {
         $this->designation = $designation;
-
         return $this;
     }
-
-	
 
     /**
      * @return Collection|Illustration[]

@@ -19,7 +19,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends AbstractController
 {
-	
+    /**
+     * @Route("/user/{slug}", name="user_profile", methods={"GET"})
+     */
     public function show(String $slug, PaginatorInterface $paginator, Request $request): Response
     {
 		$repository = $this->getDoctrine()->getRepository(User::class);

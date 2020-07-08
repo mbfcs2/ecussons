@@ -34,11 +34,11 @@ $( document ).ready(function() {
             templates: {
                 empty: [
                     '<div class="empty-message">',
-                    'unable to find any Best Picture winners that match the current query',
+                    'Aucun résultat.',
                     '</div>'
                 ].join('\n'),
                 suggestion: function(data) {
-                    return '<p class="has-background-white" class="is-size-6"><strong>' + data.name + '</strong><br /><span class="is-size-7">'+data.arbo+'</span></p>';
+                    return '<p class="has-background-white" class="is-size-7"><span class="is-size-7"><strong>' + data.name + '</strong></span><span class="is-size-9 is-block">'+data.arbo+'</span></p>';
                 }
             },
             source: states
