@@ -90,7 +90,7 @@
                 Pas d'illustration.
             {% else %}
                 {% for illustration in item.illustrations %}
-                    <img src="{{ vich_uploader_asset(illustration, 'imageFile') }}">
+                    {% include 'site/includes/illustration.html.twig' with {'illustration': illustration} %}
                 {% endfor %}
             {% endif %}
         </div>

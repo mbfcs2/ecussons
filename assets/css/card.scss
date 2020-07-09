@@ -1,0 +1,18 @@
+.illustration {
+  height:300px;
+  background-color:white;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.illustration_credits {
+  position:absolute;
+  background-color: rgba(255,255,255,0.3);
+  bottom:0;
+  width:100%;
+  box-sizing: border-box;
+  text-align:center;
+  padding:4px;
+}

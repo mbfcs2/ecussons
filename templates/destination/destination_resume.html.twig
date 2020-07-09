@@ -14,7 +14,7 @@
 			{% endif %}
 			<div class="columns is-multiline is-mobile">
 				{% for item_under in destination.items|slice(0,4) %}
-					<div class="column is-half-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd">
+					<div class="column is-half-mobile is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
 						{% include 'site/includes/card.html.twig' with {'item': item_under} %}
 					</div>
 				{% endfor %}
@@ -35,12 +35,12 @@
 					{% include 'site/includes/blocContent.html.twig' with {'content': 'Aucun écusson pour les destinations rattachées.'} %}
 				{% else %}
 					<div class="columns is-multiline is-mobile">
-						{% for item_under in items_under|slice(0, 4) %}
-							<div class="column is-half-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd">
+						{% for item_under in items_under|slice(0, 12) %}
+							<div class="column is-half-mobile is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
 								{% include 'site/includes/card.html.twig' with {'item': item_under} %}
 							</div>
 						{% endfor %}
-						{% if items_under|length > 4 %}
+						{% if items_under|length > 12 %}
 							<div class="column is-full">
 								<a href="{{ path('destination_items_under', {'slug': destination.slug}) }}" class="is-pulled-right button is-primary m-t-sm">> Tous les écussons</a>
 							</div>
