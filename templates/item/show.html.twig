@@ -35,7 +35,7 @@
                         <p>
                             <strong>Références fabricant</strong>
                             <br />
-                            <b>Fabricant :</b> {{ item.fabricant.nom }}
+                            <b>Fabricant :</b> {% if item.fabricant is not none %}{{ item.fabricant.nom }}{% else %}Inconnu{% endif %}
                             <br />
                             <b>Réference fabricant :</b> {{ item.referenceFabricant }}
                             <br>
