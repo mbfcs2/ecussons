@@ -15,7 +15,7 @@ easy_admin:
                     - reference_fabricant
                     - { property: 'getMainIllustration.getImageFile', type: 'image', base_path: '%app.path.product_images%' }
                     - designation
-                    - { property: 'destination', type: 'easyadmin_autocomplete' }
+                    - destination
                     - fabricant
                     - illustrations
                     - users
@@ -45,6 +45,7 @@ easy_admin:
                     - is_main
                     - item
                     - description
+                    - credits
             # ...
             show:
                 fields:
@@ -52,11 +53,13 @@ easy_admin:
                     - is_main
                     - item
                     - description
+                    - credits
             form:
                 fields:
                     - { property: 'imageFile', type: 'vich_image' }
                     - is_main
                     - item
                     - description
+                    - credits
         Affichage:
             class: App\Entity\DisplayType
