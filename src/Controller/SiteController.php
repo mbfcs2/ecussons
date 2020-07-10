@@ -6,6 +6,7 @@ use App\Entity\Destination;
 
 use App\Entity\Item;
 use App\Service\DestinationManager;
+use App\Service\ItemManager;
 use App\Service\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,12 @@ use Doctrine\ORM\EntityManager;
 class SiteController extends AbstractController
 {
     
-    public function index(): Response
+    public function index(ItemManager $itemManager): Response
     {
-        return $this->render('site/index.html.twig');
+        $random_items = $itemManager->get_random_items(6);
+        return $this->render('site/index.html.twig', [
+            'random_items' => $random_items
+        ]);
     }
 
     /**
