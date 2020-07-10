@@ -39,6 +39,9 @@ class UserController extends AbstractController
         );
 
         $items->setTemplate('@KnpPaginator/Pagination/bulma_pagination.html.twig');
+        $items->setCustomParameters([
+            'position' => 'centered'
+        ]);
 
 		return $this->render('user/show.html.twig', [
             'utilisateur' => $user,
