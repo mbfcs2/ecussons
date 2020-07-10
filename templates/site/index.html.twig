@@ -1,8 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Destination index{% endblock %}
+{% block title %}Ekuzone.fr - Ecussons en tissus{% endblock %}
+
+{% block hero %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <div class="has-text-centered">
+                    <span class="is-size-3 is-block">Bienvenue sur</span>
+                    <img src="/img/logo_index.png" class="m-t-sm m-b-sm">
+                    <span class="is-size-6 is-block">Site de collection d'ecussons géographiques en tissu</span>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
 
 {% block body %}
-    <h1>Bienvenue</h1>
 
+    <div class="m-l-lg m-r-lg">
+        <div class="box" id="home_search">
+            <h2 class="has-text-centered title is-3">Recherche</h2>
+
+            <input class="input is-primary typeahead" type="text" placeholder="Destinations, utilisateurs...">
+
+        </div>
+        <div class="m-t-lg m-b-lg has-text-centered">
+            <h2 class="title is-3">Ekuzone, c'est quoi ?</h2>
+            <span class="is-size-6">Collectionner les écussons géographiques en tissus, c'est le profil parfait pour être invité le mercredi soir. Mais on ne choisit pas toujours ses passions... Enfant, j'ai commencé à chercher des écussons des villes que je visitais. Et puis c'est vite devenu un jeu, associé au fait que j'aimais associer à chaque ville des couleurs et une symbolique. Depuis, ma collection a connu des hauts et des bas, mais je prends toujours plaisir à chercher des écussons et à en recevoir. J'avais envie depuis longtemps de créer un site qui pourrait lister les écussons qui existent, afin d'établir un catalogue des plus exhaustifs. Voilà pourquoi j'ai créé ce site !</span>
+        </div>
+    </div>
 {% endblock %}

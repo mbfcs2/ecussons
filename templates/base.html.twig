@@ -14,7 +14,7 @@
 	<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
 	  <div class="navbar-brand">
 		<a class="navbar-item" href="/">
-		  <img src="/img/logo.png" height="28">
+		  <img src="/img/logo_mini.png">
 		</a>
 		<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
 		  <span aria-hidden="true"></span>
@@ -24,7 +24,7 @@
 	  </div>
 
 	  <div id="navbarBasicExample" class="navbar-menu">
-		<div class="navbar-start">
+		<div class="navbar-start">{#
 		  <a class="navbar-item">
 			Accueil
 		  </a>
@@ -43,9 +43,10 @@
 			  </a>
 			</div>
 		  </div>
+		  #}
 
 		<div class="navbar-item" id="search_head">
-			<input class="input is-primary typeahead" type="text" placeholder="Destinations">
+			<input class="input is-primary typeahead" type="text" placeholder="Destinations, utilisateurs...">
 		</div>
 
 		</div>
@@ -81,8 +82,8 @@
 
 		<footer class="footer has-background-secondary" style="margin-top: 30px;">
 		  <div class="content has-text-centered">
-			<p>
-				Ce site possède un footer.
+			<p class="is-size-8">
+				Ekuzone.fr
 			</p>
 		  </div>
 		</footer>

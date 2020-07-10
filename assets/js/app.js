@@ -20,17 +20,19 @@ $( document ).ready(function() {
         remote: {
             url: '/search?q=%QUERY',
             wildcard: '%QUERY'
-        }
+        },
+        limit: 20
     });
 
     $('.typeahead').typeahead({
             hint: true,
             highlight: true,
-            minLength: 1
+            minLength: 1,
         },
         {
             name: 'states',
             display: 'name',
+            limit: 'Infinity',
             templates: {
                 empty: [
                     '<div class="empty-message">',

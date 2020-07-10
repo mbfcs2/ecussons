@@ -29,8 +29,23 @@ class SiteController extends AbstractController
     public function search(Request $request, DestinationManager $DestinationManager, UserManager $UserManager): Response
     {
         $retour = [];
-        $searching_term = $request->query->getAlnum('q');
+        $searching_term = $request->query->get('q');
         if (!is_null($searching_term)) {
+
+            // Utilisateurs
+            $users = $UserManager->get_users_by_name($searching_term);
+            foreach ($users as $user) {
+                $retour[] = [
+                    'type' => 'user',
+                    'name' => $user->getLogin(),
+                    'arbo' => 'Utilisateur',
+                    'nbitems' => $user->getItems()->count(),
+                    'url' => $this->generateUrl('user_profile', [
+                        'slug' => $user->getSlug()
+                    ])
+                ];
+            }
+
 
             // Destinations
             $children = $DestinationManager->get_destinations_by_name($searching_term);
@@ -46,19 +61,7 @@ class SiteController extends AbstractController
                 ];
             }
 
-            // Utilisateurs
-            $users = $UserManager->get_users_by_name($searching_term);
-            foreach ($users as $user) {
-                $retour[] = [
-                    'type' => 'user',
-                    'name' => $user->getLogin(),
-                    'arbo' => 'Utilisateur',
-                    'nbitems' => $user->getItems()->count(),
-                    'url' => $this->generateUrl('user_profile', [
-                        'slug' => $user->getSlug()
-                    ])
-                ];
-            }
+
         }
         return $this->json($retour);
     }
