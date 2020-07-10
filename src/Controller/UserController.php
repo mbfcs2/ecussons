@@ -38,7 +38,7 @@ class UserController extends AbstractController
             16 /*limit per page*/
         );
 
-        $items->setTemplate('@KnpPaginator/Pagination/bulma_pagination.html.twig');
+        $items->setTemplate('/site/includes/pagination.html.twig');
         $items->setCustomParameters([
             'position' => 'centered'
         ]);
