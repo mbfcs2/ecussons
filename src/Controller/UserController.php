@@ -38,6 +38,8 @@ class UserController extends AbstractController
             16 /*limit per page*/
         );
 
+        $items->setTemplate('@KnpPaginator/Pagination/bulma_pagination.html.twig');
+
 		return $this->render('user/show.html.twig', [
             'utilisateur' => $user,
             'items' => $items,
@@ -57,8 +59,7 @@ class UserController extends AbstractController
 		
 		$entityManager = $this->getDoctrine()->getManager();
 		$itemtoadd = $entityManager->getRepository(Item::class)->find($id);
-		
-		
+
 		if ($user->getItems()->contains($itemtoadd)) {
 			$user->removeItem($itemtoadd) ;
 			$gotit = false ;
