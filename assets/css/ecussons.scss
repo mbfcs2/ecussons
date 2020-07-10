@@ -33,6 +33,10 @@ $input-shadow: none;
 @import "search.scss";
 @import "card.scss";
 
+nav.pagination + div.columns {
+  margin-top : 0px !important;
+}
+
 $size-1: 3rem !default
 $size-2: 2.5rem !default
 $size-3: 2rem !default
