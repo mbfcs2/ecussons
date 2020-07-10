@@ -76,14 +76,15 @@
 	
 	
 		{% block hero %}{% endblock %}
-        <div class="container" style="padding-top:30px">
+        <div class="container p-t-lg">
 		{% block body %}{% endblock %}
 		</div>
 
-		<footer class="footer has-background-secondary" style="margin-top: 30px;">
+		<footer class="footer has-background-secondary m-t-lg">
 		  <div class="content has-text-centered">
 			<p class="is-size-8">
-				Ekuzone.fr
+				<strong>Ekuzone.fr</strong><br />
+				<a href="{{ path('user_profile', {slug: "mbfcs2"}) }}">La collection d'Antony</a>
 			</p>
 		  </div>
 		</footer>

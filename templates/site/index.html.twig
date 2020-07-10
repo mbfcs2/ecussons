@@ -29,7 +29,7 @@
         </div>
         <div class="box">
             <h2 class="has-text-centered title is-size-3 is-size-5-mobile">Quelques écussons...</h2>
-            <div class="columns is-multiline">
+            <div class="columns is-multiline is-mobile">
                 {% for random_item in random_items %}
                     <div class="column is-half-mobile is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
                         {% include 'site/includes/card.html.twig' with {'item': random_item} %}
