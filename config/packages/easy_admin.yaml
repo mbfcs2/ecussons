@@ -13,7 +13,7 @@ easy_admin:
             list:
                 fields:
                     - reference_fabricant
-                    - { property: 'getMainIllustration.getImageFile', type: 'image', base_path: '%app.path.product_images%' }
+                    - { property: 'getMainIllustration.getImage', type: 'image', base_path: '%app.path.product_images%', label: 'Image' }
                     - designation
                     - destination
                     - fabricant
