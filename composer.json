@@ -6,7 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "easycorp/easyadmin-bundle": "^2.0",
-        "knplabs/knp-paginator-bundle": "^5.0",
+        "knplabs/knp-paginator-bundle": "^5.2",
         "nelmio/api-doc-bundle": "^3.3",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "^4.4",
@@ -20,7 +20,7 @@
         "symfony/webpack-encore-bundle": "^1.1",
         "symfony/yaml": "^4.4",
         "twig/twig": "^3.0",
-        "vich/uploader-bundle": "^1.8"
+        "vich/uploader-bundle": "^1.14"
     },
     "config": {
         "preferred-install": {
