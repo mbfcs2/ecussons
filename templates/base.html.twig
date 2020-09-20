@@ -67,6 +67,7 @@
 					<a class="button">
 						{{ app.user.login }}
 					  </a>
+					<a class="button is-primary" href="{{ path('app_logout') }}">Déconnexion</a>
 				{% else %}
 					<a class="button is-primary" id="connexion">
 				Connexion
@@ -149,30 +150,33 @@
 			<form method="post" action="/login">
 				<header class="modal-card-head">
 				  <p class="modal-card-title">Connexion</p>
-				  <button class="delete" aria-label="close" id="connexion_modal_close">Fermer</button>
+				  <button class="button is-primary" aria-label="close" id="connexion_modal_close">Fermer</button>
 				</header>
 				<section class="modal-card-body">
-					
-					<label for="inputEmail" class="sr-only">Email</label>
-					<input type="email" value="" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-					<label for="inputPassword" class="sr-only">Password</label>
-					<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-					<input type="hidden" name="_csrf_token"
-						   value="{{ csrf_token('authenticate') }}"
-					>
-
-		
-					<div class="checkbox mb-3">
-						<label>
-							<input type="checkbox" name="_remember_me"> Remember me
-						</label>
+					<div class="columns">
+						<div class="column is-three-fifths is-offset-one-fifth">
+							<label for="inputEmail" class="sr-only">E-mail</label><br>
+							<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input is-primary form-control" placeholder="Email" required autofocus>
+							<br><br>
+							<label for="inputPassword" class="sr-only">Mot de passe</label><br>
+							<input type="password" name="password" id="inputPassword" class="input is-primary form-control" placeholder="Mot de passe" required>
+							<br><br>
+							<input type="hidden" name="_csrf_token"
+								   value="{{ csrf_token('authenticate') }}"
+							>
+							<div class="checkbox mb-3">
+								<label>
+									<input type="checkbox" name="_remember_me"> Se souvenir de moi
+								</label>
+							</div>
+						</div>
 					</div>
 					
 				</section>
 				<footer class="modal-card-foot">
-				  <button class="button is-success" type="submit">Valider</button>
-				  <button class="button">M'inscrire</button>
+				  <button class="button is-primary" type="submit">Valider</button>
+				  <a class="button is-pulled-right" href="{{ path('app_signup') }}">M'inscrire</a>
 				</footer>
 			</form>
 		  </div>

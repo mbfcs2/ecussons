@@ -1,33 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+{% block hero %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Connexion
+                </h1>
+            </div>
         </div>
-   
+    </section>
+{% endblock %}
+{% block body %}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        Vous êtes correctement authentifié.
+    {% else %}
+
+        <form method="post">
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <div class="columns">
+                <div class="column is-three-fifths is-offset-one-fifth">
+                    <label for="inputEmail" class="sr-only">E-mail</label><br>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input is-primary form-control" placeholder="Email" required autofocus>
+                    <br><br>
+                    <label for="inputPassword" class="sr-only">Mot de passe</label><br>
+                    <input type="password" name="password" id="inputPassword" class="input is-primary form-control" placeholder="Mot de passe" required>
+                    <br><br>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                        </label>
+                    </div>
+                    <br><br>
+                    <button class="button is-primary" type="submit">
+                        Connexion
+                    </button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
 {% endblock %}
