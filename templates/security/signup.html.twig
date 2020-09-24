@@ -18,6 +18,8 @@
 {% endblock %}
 {% block body %}
 
+    L'inscription n'est pas encore disponible !
+    {#
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         Vous êtes déjà authentifié !
     {% else %}
@@ -37,4 +39,5 @@
         </script>
 
     {% endif %}
+    #}
 {% endblock %}
