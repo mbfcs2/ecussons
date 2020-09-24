@@ -36,6 +36,23 @@ easy_admin:
                     - displayType
         User:
             class: App\Entity\User
+            form:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'login' }
+                    - property: 'roles'
+                      type: 'choice'
+                      type_options:
+                          mapped: true
+                          expanded: true
+                          multiple: true
+                          choices: { 'Conseiller': 'ROLE_USER', 'Administrateur': 'ROLE_ADMIN' }
+            list:
+                fields:
+                    - login
+                    - email
+                    - roles
         Illustration:
             class: App\Entity\Illustration
             # ...
