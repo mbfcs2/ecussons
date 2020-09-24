@@ -376,7 +376,7 @@
     "jsonfile": "^2.4.0",
     "jsprim": "^1.4.1",
     "killable": "^1.0.1",
-    "kind-of": "^3.2.2",
+    "kind-of": "^6.0.3",
     "last-call-webpack-plugin": "^3.0.0",
     "lcid": "^1.0.0",
     "load-json-file": "^1.1.0",
