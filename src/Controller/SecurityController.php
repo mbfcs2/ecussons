@@ -2,10 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\UserType;
+use App\Service\UserManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class SecurityController extends AbstractController
 {
@@ -34,8 +42,52 @@ class SecurityController extends AbstractController
     /**
      * @Route("/signup", name="app_signup")
      */
-    public function signup(): Response
+    public function signup(Request $request, UserManager $UserManager, LoggerInterface $logger): Response
     {
-        return $this->render('security/signup.html.twig');
+        $user = new User();
+        // ...
+
+        $form = $this->createForm(UserType::class, $user);
+        $errors = [];
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $user = $form->getData();
+
+            // Création du slug, avec gestion de suffixe si le slug
+            // existe déjà
+            $slugger = new AsciiSlugger();
+            $slug_suffix = 0;
+            $slug_base = $slugger->slug($user->getLogin());
+            do {
+                $slug = $slug_base;
+                if ($slug_suffix !== 0) {
+                    $slug .= "-" . $slug_suffix;
+                }
+                ++$slug_suffix;
+            } while (count($UserManager->get_users_by_slug($slug)) != 0);
+            $user->setSlug($slug);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->container->get('security.token_storage')->setToken($token);
+            $this->container->get('session')->set('_security_main', serialize($token));
+
+            $this->addFlash(
+                'notice',
+                'Bienvenue sur EkuZone ' . $user->getLogin() . "! Il est temps de compléter votre collection !"
+            );
+
+            return $this->redirectToRoute('user_profile', ['slug' => $slug]);
+
+        }
+
+        return $this->render('security/signup.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

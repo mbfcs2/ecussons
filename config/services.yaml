@@ -7,6 +7,7 @@ parameters:
     locale: 'fr'
     app.path.product_images: /uploads/images/items
     app.path.product_images_for_admin: /public/uploads/images/items
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
 
 services:
     # default configuration for services in *this* file

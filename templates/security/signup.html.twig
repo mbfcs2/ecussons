@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block js %}<script src="https://www.google.com/recaptcha/api.js?render=6LdD8s8ZAAAAAJ20dgikVOYKk4QwFxXgSmnGtk6l"></script>
 
+
+{% endblock %}
 {% block title %}Inscription{% endblock %}
 
 {% block hero %}
@@ -18,6 +21,20 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         Vous êtes déjà authentifié !
     {% else %}
-        L'inscription sur EkuZone.fr n'est pas encore possible, mais je travaille dessus !
+        {{form_start(form, {'attr': { 'id':'signUpForm' }})}}
+        {{form_widget(form)}}
+        {{form_end(form)}}
+
+        <script>
+            document.querySelector("#ignUpForm").addEventListener("submit", function(e){
+                e.preventDefault();
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LdD8s8ZAAAAAJ20dgikVOYKk4QwFxXgSmnGtk6l', {action: 'submit'}).then(function(token) {
+                        document.querySelector("#signUpForm").submit();
+                    });
+                });
+            });
+        </script>
+
     {% endif %}
 {% endblock %}

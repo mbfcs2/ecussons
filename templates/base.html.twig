@@ -7,6 +7,7 @@
 		{{ encore_entry_link_tags('app') }}
         <title>Ekuzone.fr - {% block title %}Ecussons{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+		{% block js %}{% endblock %}
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-172317099-1"></script>
 		<script>
@@ -86,7 +87,14 @@
 	
 	
 		{% block hero %}{% endblock %}
+
         <div class="container p-t-lg">
+		{% for message in app.flashes('notice') %}
+			<div class="p-b-lg">
+				{{ message }}
+			</div>
+		{% endfor %}
+
 		{% block body %}{% endblock %}
 		</div>
 
