@@ -680,7 +680,7 @@
     "to-regex": "^3.0.2",
     "to-regex-range": "^2.1.1",
     "tough-cookie": "^2.4.3",
-    "trim-newlines": "^1.0.0",
+    "trim-newlines": "^3.0.1",
     "trim-right": "^1.0.1",
     "true-case-path": "^1.0.3",
     "tslib": "^1.9.3",
