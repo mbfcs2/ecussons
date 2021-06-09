@@ -266,7 +266,7 @@
     "get-value": "^2.0.6",
     "getpass": "^0.1.7",
     "glob": "^7.1.3",
-    "glob-parent": "^3.1.0",
+    "glob-parent": "^5.1.2",
     "global-modules": "^1.0.0",
     "global-prefix": "^1.0.2",
     "globals": "^11.11.0",
