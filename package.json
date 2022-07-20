@@ -667,7 +667,7 @@
     "supports-color": "^5.5.0",
     "svgo": "^1.1.1",
     "tapable": "^1.1.1",
-    "terser": "^3.16.1",
+    "terser": "^4.8.1",
     "terser-webpack-plugin": "^1.2.2",
     "through2": "^2.0.5",
     "thunky": "^1.0.3",
